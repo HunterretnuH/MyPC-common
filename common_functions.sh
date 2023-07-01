@@ -20,10 +20,9 @@ trap error ERR
     function section() { #{
     # $1 - message
         MSG=$1
-        echo -e "\033[32;1mSuccess!\033[0m"
-        if [ -z $AUTO_CONTINUE ]; then press_to_continue; fi
-        if [ -z $IS_IT_FIRST_MESSAGE ]; then echo -e "$msg"; fi
+        if [ -n "$IS_IT_FIRST_MESSAGE" ]; then echo -e "\033[32;1mSuccess!\033[0m"; fi
         IS_IT_FIRST_MESSAGE=FALSE
+        echo -e "$MSG"
     } #}
 
 #} FUNCTIONS
