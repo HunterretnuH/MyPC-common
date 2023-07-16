@@ -9,8 +9,8 @@ trap error ERR
 
     function error() { #{
         RESULT=$?
-        echo -e "[FILE: \"${SOURCE}\" LINE: \"${BASH_LINENO[0]}\"] \033[31;1mFail! Error code: $RESULT\033[0m"
-        exit 1
+        echo -e "\n[FILE: \"${SOURCE}\" LINE: \"${BASH_LINENO[0]}\"] \033[31;1mFail! Error code: $RESULT\033[0m"
+        press_to_continue
     } #}
 
     function press_to_continue() { #{
@@ -18,11 +18,15 @@ trap error ERR
     } #}
 
     function section() { #{
-    # $1 - message
+        # $1 - message
+        if [ $? -ne 0 ];then error; fi
+
         MSG=$1
-        if [ -n "$IS_IT_FIRST_MESSAGE" ]; then echo -e "\033[32;1mSuccess!\033[0m"; fi
+        if [ -n "$IS_IT_FIRST_MESSAGE" ]; then 
+            echo -e "${PREFIX}\033[32;1mSuccess!\033[0m";
+        fi
         IS_IT_FIRST_MESSAGE=FALSE
-        echo -e "$MSG"
+        echo -e "${PREFIX}$MSG"
     } #}
 
 #} FUNCTIONS
